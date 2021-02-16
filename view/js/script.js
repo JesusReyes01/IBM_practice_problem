@@ -8,13 +8,13 @@ function addContact() {
     const mobile = mobileInput.value
     const email = emailInput.value
     console.log(name.length)
-    if(name.length > 20 || name.length === 0){
+    if(name.length > 20 || name.length !== 0){
         error.style.display = 'block'
     }
     if(mobile.length !==10 ){
         error.style.display = 'block'
     }
-    if(email.length > 40 || email.length === 0 ){
+    if(email.length > 40 || email.length !== 0 ){
         error.style.display = 'block'
     }
     if(name.length < 20 && name.length > 0 && mobile.length === 10 && email.length < 40 && email.length > 0){
