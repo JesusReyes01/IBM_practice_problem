@@ -41,9 +41,43 @@ function addContact() {
 }
 
 function sortContacts() {
-    const contacts = document.getElementsByTagName('tr')
-    console.log(contacts)
-}
+    
+    let rows;
+    let i, shouldSwitch, switchCount = 0;
+    let contacts = document.getElementById("summaryTable");
+    let switching = true;
+    let dir = "asc"; 
+    while (switching) {
+      switching = false;
+      rows = contacts.rows;
+      for (i = 1; i < (rows.length - 1); i++) {
+        shouldSwitch = false;
+        let x = rows[i].getElementsByTagName("TD")[0];
+        let y = rows[i + 1].getElementsByTagName("TD")[0];
+        if (dir == "asc") {
+          if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+            shouldSwitch= true;
+            break;
+          }
+        } else if (dir == "desc") {
+          if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+            shouldSwitch = true;
+            break;
+          }
+        }
+      }
+      if (shouldSwitch) {
+        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+        switching = true;
+        switchCount ++;      
+      } else {
+        if (switchCount === 0 && dir === "asc") {
+          dir = "desc";
+          switching = true;
+        }
+      }
+    }
+  }
 
 document.getElementById('submit')
 .addEventListener('click', addContact)
