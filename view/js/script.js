@@ -14,10 +14,10 @@ function addContact() {
     if(mobile.length !==10 ){
         error.style.display = 'block'
     }
-    if(email.length > 40 || email.length !== 0 ){
+    if(email.length > 40 || email.length !== 0 || email.includes('@') === false){
         error.style.display = 'block'
     }
-    if(name.length < 20 && name.length > 0 && mobile.length === 10 && email.length < 40 && email.length > 0){
+    if(name.length < 20 && name.length > 0 && mobile.length === 10 && email.length < 40 && email.length > 0 && email.includes('@')){
         const cellRow = document.createElement('tr')
         const nameCell = document.createElement('td')
         const nameText = document.createTextNode(name)
