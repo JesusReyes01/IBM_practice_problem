@@ -31,16 +31,22 @@ function addContact() {
         cellRow.appendChild(nameCell)
         cellRow.appendChild(mobileCell)
         cellRow.appendChild(emailCell)
-        document.getElementById('summaryTable').appendChild(cellRow)
+        document.getElementsByTagName('tbody')[0].appendChild(cellRow)
         
         nameInput.value = '';
         mobileInput.value = '';
         emailInput.value = '';
         error.style.display = 'none';
     }
-    
+}
 
+function sortContacts() {
+    const contacts = document.getElementsByTagName('tr')
+    console.log(contacts)
 }
 
 document.getElementById('submit')
 .addEventListener('click', addContact)
+
+document.getElementById('nameColumn')
+.addEventListener('click', sortContacts)
