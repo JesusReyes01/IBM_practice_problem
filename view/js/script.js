@@ -7,7 +7,6 @@ function addContact() {
     const name = nameInput.value
     const mobile = mobileInput.value
     const email = emailInput.value
-    // console.log(!/^[a-zA-Z ]+$/.test(name))
     if(name.length > 20 || name === null || !/^[a-zA-Z ]+$/.test(name)){
         error.style.display = 'block'
     }
@@ -18,7 +17,6 @@ function addContact() {
         error.style.display = 'block'
     }
     else {
-    // if(name.length < 20 && name.length > 0 && /^[a-zA-Z ]+$/.test(name) && mobile.length === 10 && email.length < 40 && email.length > 0 && email.includes('@')){
         const cellRow = document.createElement('tr')
         const nameCell = document.createElement('td')
         const nameText = document.createTextNode(name)
