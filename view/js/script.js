@@ -7,17 +7,18 @@ function addContact() {
     const name = nameInput.value
     const mobile = mobileInput.value
     const email = emailInput.value
-    console.log(name.length)
-    if(name.length > 20 || name.length !== 0){
+    // console.log(!/^[a-zA-Z ]+$/.test(name))
+    if(name.length > 20 || name === null || !/^[a-zA-Z ]+$/.test(name)){
         error.style.display = 'block'
     }
-    if(mobile.length !==10 ){
+    else if(mobile.length !==10 ){
         error.style.display = 'block'
     }
-    if(email.length > 40 || email.length !== 0 || email.includes('@') === false){
+    else if(email.length > 40 || email.length === null || email.includes('@') === false){
         error.style.display = 'block'
     }
-    if(name.length < 20 && name.length > 0 && mobile.length === 10 && email.length < 40 && email.length > 0 && email.includes('@')){
+    else {
+    // if(name.length < 20 && name.length > 0 && /^[a-zA-Z ]+$/.test(name) && mobile.length === 10 && email.length < 40 && email.length > 0 && email.includes('@')){
         const cellRow = document.createElement('tr')
         const nameCell = document.createElement('td')
         const nameText = document.createTextNode(name)
@@ -38,6 +39,7 @@ function addContact() {
         emailInput.value = '';
         error.style.display = 'none';
     }
+    addCellColor()
 }
 
 function sortContacts() {
@@ -48,39 +50,54 @@ function sortContacts() {
     let switching = true;
     let dir = "asc"; 
     while (switching) {
-      switching = false;
-      rows = contacts.rows;
-      for (i = 1; i < (rows.length - 1); i++) {
-        shouldSwitch = false;
-        let x = rows[i].getElementsByTagName("TD")[0];
-        let y = rows[i + 1].getElementsByTagName("TD")[0];
-        if (dir == "asc") {
-          if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-            shouldSwitch= true;
-            break;
-          }
-        } else if (dir == "desc") {
-          if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-            shouldSwitch = true;
-            break;
-          }
+        switching = false;
+        rows = contacts.rows;
+        for (i = 1; i < (rows.length - 1); i++) {
+            shouldSwitch = false;
+            let x = rows[i].getElementsByTagName("TD")[0];
+            let y = rows[i + 1].getElementsByTagName("TD")[0];
+            if (dir == "asc") {
+                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                    shouldSwitch= true;
+                break;
+            }
+            } else if (dir == "desc") {
+                if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                    shouldSwitch = true;
+                    break;
+                }
+            }
         }
-      }
-      if (shouldSwitch) {
-        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-        switching = true;
-        switchCount ++;      
-      } else {
-        if (switchCount === 0 && dir === "asc") {
-          dir = "desc";
-          switching = true;
-        }
-      }
+        if (shouldSwitch) {
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+            switchCount ++;      
+        } else {
+            if (switchCount === 0 && dir === "asc") {
+            dir = "desc";
+            switching = true;
+            }
+        } 
     }
-  }
+    addCellColor()
+}
+
+function addCellColor () {
+    table = document.getElementById("summaryTable");
+    tableRows = table.rows
+    for(let m = 0; m < tableRows.length; m++){
+        if(m%2 !== 0){
+            tableRows[m].style.backgroundColor = '#f2f2f2'
+        }else{
+            tableRows[m].style.backgroundColor = '#ffffff'
+        }
+    }
+}
 
 document.getElementById('submit')
 .addEventListener('click', addContact)
 
 document.getElementById('nameColumn')
 .addEventListener('click', sortContacts)
+
+addCellColor()
